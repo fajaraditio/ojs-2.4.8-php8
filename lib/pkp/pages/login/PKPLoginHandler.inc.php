@@ -118,6 +118,10 @@ class PKPLoginHandler extends Handler {
 			$request->redirectSSL();
 		}
 
+		if (!$request->isPost() || !PKPRequest::checkCSRF()) {
+			$request->redirect(null, 'login');
+		}
+
 		$user = Validation::login($request->getUserVar('username'), $request->getUserVar('password'), $reason, $request->getUserVar('remember') == null ? false : true);
 		if ($user !== false) {
 			if ($user->getMustChangePassword()) {

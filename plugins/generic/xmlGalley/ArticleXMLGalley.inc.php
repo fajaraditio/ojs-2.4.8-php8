@@ -307,7 +307,9 @@ class ArticleXMLGalley extends ArticleHTMLGalley {
 
 				// create the processor and import the stylesheet
 				$xslDom = new DOMDocument("1.0", "UTF-8");
-				$xslDom->load($xslFile);
+				$xslDom->substituteEntities = false;
+				$xslDom->resolveExternals = false;
+				$xslDom->load($xslFile, LIBXML_NONET);
 
 				$proc = new XsltProcessor();
 				$proc->importStylesheet($xslDom);

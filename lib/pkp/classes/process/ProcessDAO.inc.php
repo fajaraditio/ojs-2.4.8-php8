@@ -99,7 +99,7 @@ class ProcessDAO extends DAO {
 
 		// Generate a new process ID. See classdoc for process ID
 		// requirements.
-		$process->setId(uniqid('', true));
+		$process->setId(substr(bin2hex(random_bytes(12)), 0, 23));
 
 		// Generate the timestamp.
 		$process->setTimeStarted(time());

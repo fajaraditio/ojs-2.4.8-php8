@@ -196,7 +196,12 @@ class CustomLocaleHandler extends Handler {
 		}
 		$file->write();
 
-		Request::redirectUrl(Request::getUserVar('redirectUrl'));
+		$redirectUrl = Request::getUserVar('redirectUrl');
+		if ($redirectUrl && PKPRequest::isSafeRedirectUrl($redirectUrl)) {
+			Request::redirectUrl($redirectUrl);
+		} else {
+			Request::redirect(null, 'manager');
+		}
 	}
 
 	function correctCr($value) {

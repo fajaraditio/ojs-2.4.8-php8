@@ -362,7 +362,9 @@ class Validation {
 			return false;
 		}
 
-		return ($hash === Validation::generatePasswordResetHash($userId, $expiry));
+		$expected = Validation::generatePasswordResetHash($userId, $expiry);
+		if ($expected === false) return false;
+		return hash_equals((string) $expected, (string) $hash);
 	}
 
 	/**

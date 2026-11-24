@@ -131,7 +131,7 @@ class EmailHandler extends UserHandler {
 			$email = new MailTemplate($template);
 		}
 
-		if ($request->isPost() && $request->getUserVar('send') && !$email->hasErrors()) {
+		if ($request->isPost() && PKPRequest::checkCSRF() && $request->getUserVar('send') && !$email->hasErrors()) {
 			$recipients = $email->getRecipients();
 			$ccs = $email->getCcs();
 			$bccs = $email->getBccs();

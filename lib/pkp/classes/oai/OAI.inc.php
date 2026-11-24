@@ -247,7 +247,7 @@ class OAI {
 			"\t\t\t\t<datestamp>" . $record->datestamp . "</datestamp>\n";
 		// Output set memberships
 		foreach ($record->sets as $setSpec) {
-			$response .= "\t\t\t\t<setSpec>$setSpec</setSpec>\n";
+			$response .= "\t\t\t\t<setSpec>" . OAIUtils::prepOutput($setSpec) . "</setSpec>\n";
 		}
 		$response .= "\t\t\t</header>\n";
 		if (!empty($record->data)) {
@@ -278,9 +278,9 @@ class OAI {
 		// Format body of response
 		$response = "\t<Identify>\n" .
 			"\t\t<repositoryName>" . OAIUtils::prepOutput($info->repositoryName) . "</repositoryName>\n" .
-			"\t\t<baseURL>" . $this->config->baseUrl . "</baseURL>\n" .
+			"\t\t<baseURL>" . OAIUtils::prepOutput($this->config->baseUrl) . "</baseURL>\n" .
 			"\t\t<protocolVersion>" . $this->protocolVersion . "</protocolVersion>\n" .
-			"\t\t<adminEmail>" . $info->adminEmail . "</adminEmail>\n" .
+			"\t\t<adminEmail>" . OAIUtils::prepOutput($info->adminEmail) . "</adminEmail>\n" .
 			"\t\t<earliestDatestamp>" . OAIUtils::UTCDate($info->earliestDatestamp) . "</earliestDatestamp>\n" .
 			"\t\t<deletedRecord>persistent</deletedRecord>\n" .
 			"\t\t<granularity>" . $this->config->granularity . "</granularity>\n";

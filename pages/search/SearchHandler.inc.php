@@ -106,11 +106,14 @@ class SearchHandler extends Handler {
 		// Assign the year range.
 		$publishedArticleDao =& DAORegistry::getDAO('PublishedArticleDAO');
 		$yearRange = $publishedArticleDao->getArticleYearRange($journalId);
-		$startYear = '-' . (date('Y') - substr($yearRange[1], 0, 4));
-		if (substr($yearRange[0], 0, 4) >= date('Y')) {
-			$endYear = '+' . (substr($yearRange[0], 0, 4) - date('Y'));
+		$currentYear = (int) date('Y');
+		$minYear = !empty($yearRange[1]) ? (int) substr((string) $yearRange[1], 0, 4) : $currentYear;
+		$maxYear = !empty($yearRange[0]) ? (int) substr((string) $yearRange[0], 0, 4) : $currentYear;
+		$startYear = '-' . ($currentYear - $minYear);
+		if ($maxYear >= $currentYear) {
+			$endYear = '+' . ($maxYear - $currentYear);
 		} else {
-			$endYear = (substr($yearRange[0], 0, 4) - date('Y'));
+			$endYear = ($maxYear - $currentYear);
 		}
 		$templateMgr->assign(compact('startYear', 'endYear'));
 

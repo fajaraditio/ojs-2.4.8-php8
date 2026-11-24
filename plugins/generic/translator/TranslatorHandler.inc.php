@@ -204,7 +204,12 @@ class TranslatorHandler extends Handler {
 			unset($file);
 		}
 
-		Request::redirectUrl(Request::getUserVar('redirectUrl'));
+		$redirectUrl = Request::getUserVar('redirectUrl');
+		if ($redirectUrl && PKPRequest::isSafeRedirectUrl($redirectUrl)) {
+			Request::redirectUrl($redirectUrl);
+		} else {
+			Request::redirect(null, 'manager');
+		}
 	}
 
 	function downloadLocaleFile($args) {
@@ -325,7 +330,12 @@ class TranslatorHandler extends Handler {
 			}
 		}
 		$file->write();
-		Request::redirectUrl(Request::getUserVar('redirectUrl'));
+		$redirectUrl = Request::getUserVar('redirectUrl');
+		if ($redirectUrl && PKPRequest::isSafeRedirectUrl($redirectUrl)) {
+			Request::redirectUrl($redirectUrl);
+		} else {
+			Request::redirect(null, 'manager');
+		}
 	}
 
 	function deleteLocaleKey($args) {
@@ -417,7 +427,12 @@ class TranslatorHandler extends Handler {
 			$file->update($key, '');
 		}
 		$file->write();
-		Request::redirectUrl(Request::getUserVar('redirectUrl'));
+		$redirectUrl = Request::getUserVar('redirectUrl');
+		if ($redirectUrl && PKPRequest::isSafeRedirectUrl($redirectUrl)) {
+			Request::redirectUrl($redirectUrl);
+		} else {
+			Request::redirect(null, 'manager');
+		}
 	}
 
 	function deleteEmail($args) {

@@ -398,7 +398,7 @@ class SubscriptionManagerHandler extends Handler {
 
 			} else {
 				$source = Request::getUserVar('source');
-				if (isset($source) && !empty($source)) {
+				if (isset($source) && !empty($source) && PKPRequest::isSafeRedirectUrl($source)) {
 					Request::redirectUrl($source);
 				} else {
 					Request::redirect(null, null, 'selectSubscriber');

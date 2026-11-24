@@ -159,7 +159,7 @@ class ProfileForm extends Form {
 	/**
 	 * Initialize form data from current settings.
 	 */
-	function initData(&$args, &$request) {
+	function initData(&$args = null, &$request = null) {
 		$user =& $request->getUser();
 
 		import('lib.pkp.classes.user.InterestManager');

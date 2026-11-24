@@ -24,7 +24,10 @@ class UserSettingsDAO extends PKPUserSettingsDAO {
 	 * @param $journalId int
 	 * @return mixed
 	 */
-	function &getSetting($userId, $name, $journalId = null) {
+	function &getSetting($userId, $name, $journalId = null, $assocId = null) {
+		if ($assocId !== null) {
+			return parent::getSetting($userId, $name, $journalId, $assocId);
+		}
 		return parent::getSetting($userId, $name, ASSOC_TYPE_JOURNAL, $journalId);
 	}
 
@@ -34,9 +37,13 @@ class UserSettingsDAO extends PKPUserSettingsDAO {
 	 * @param $value mixed
 	 * @param $type string
 	 * @param $journalId int
+	 * @param $assocId int|null
 	 * @return DAOResultFactory matching Users
 	 */
-	function &getUsersBySetting($name, $value, $type = null, $journalId = null) {
+	function &getUsersBySetting($name, $value, $type = null, $journalId = null, $assocId = null) {
+		if ($assocId !== null) {
+			return parent::getUsersBySetting($name, $value, $type, $journalId, $assocId);
+		}
 		return parent::getUsersBySetting($name, $value, $type, ASSOC_TYPE_JOURNAL, $journalId);
 	}
 
@@ -58,7 +65,10 @@ class UserSettingsDAO extends PKPUserSettingsDAO {
 	 * @param $type string data type of the setting. If omitted, type will be guessed
 	 * @param $journalId int
 	 */
-	function updateSetting($userId, $name, $value, $type = null, $journalId = null) {
+	function updateSetting($userId, $name, $value, $type = null, $journalId = null, $assocId = null) {
+		if ($assocId !== null) {
+			return parent::updateSetting($userId, $name, $value, $type, $journalId, $assocId);
+		}
 		return parent::updateSetting($userId, $name, $value, $type, ASSOC_TYPE_JOURNAL, $journalId);
 	}
 
@@ -68,7 +78,10 @@ class UserSettingsDAO extends PKPUserSettingsDAO {
 	 * @param $name string
 	 * @param $journalId int
 	 */
-	function deleteSetting($userId, $name, $journalId = null) {
+	function deleteSetting($userId, $name, $journalId = null, $assocId = null) {
+		if ($assocId !== null) {
+			return parent::deleteSetting($userId, $name, $journalId, $assocId);
+		}
 		return parent::deleteSetting($userId, $name, ASSOC_TYPE_JOURNAL, $journalId);
 	}
 }

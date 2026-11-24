@@ -29,7 +29,7 @@ class NotificationMailListDAO extends DAO {
 	 * @return string
 	 */
 	function subscribeGuest($email, $contextId) {
-		$token = uniqid(rand());
+		$token = bin2hex(random_bytes(16));
 
 		// Recurse if this token already exists
 		if($this->getMailListIdByToken($token, $contextId)) return $this->subscribeGuest($email, $contextId);

@@ -58,6 +58,9 @@ class ProfileHandler extends UserHandler {
 		$profileForm = new ProfileForm();
 		$profileForm->readInputData();
 
+		if (!$request->isPost() || !PKPRequest::checkCSRF()) {
+			$request->redirect(null, $request->getRequestedPage());
+		}
 		if ($request->isPost() && $request->getUserVar('uploadProfileImage')) {
 			if (!$profileForm->uploadProfileImage()) {
 				$profileForm->addError('profileImage', __('user.profile.form.profileImageInvalid'));
@@ -107,7 +110,7 @@ class ProfileHandler extends UserHandler {
 		$passwordForm->readInputData();
 
 		$this->setupTemplate($request, true);
-		if ($passwordForm->validate()) {
+		if ($request->isPost() && PKPRequest::checkCSRF() && $passwordForm->validate()) {
 			$passwordForm->execute();
 			$request->redirect(null, $request->getRequestedPage());
 

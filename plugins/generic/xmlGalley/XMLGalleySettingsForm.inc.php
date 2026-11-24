@@ -109,7 +109,7 @@ class XMLGalleySettingsForm extends Form {
 
 		$plugin->updateSetting($journalId, 'nlmPDF', $this->getData('nlmPDF'));
 		$plugin->updateSetting($journalId, 'XSLstylesheet', $this->getData('XSLstylesheet'));
-		$plugin->updateSetting($journalId, 'customXSL', $this->getData('customXSL'));
+		$plugin->updateSetting($journalId, 'customXSL', basename((string) $this->getData('customXSL')));
 		// Restrict external OS command templates and renderer selection to Site Administrators
 		if (Validation::isSiteAdmin()) {
 			$plugin->updateSetting($journalId, 'externalFOP', $this->getData('externalFOP'));
