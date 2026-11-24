@@ -1,0 +1,20 @@
+# Local configuration (may contain credentials)
+config.inc.php
+
+# Runtime cache & compiled templates
+cache/*.php
+cache/_db/*
+cache/t_cache/*
+cache/t_compile/*
+cache/t_config/*
+!cache/.htaccess
+
+# Uploaded public files
+public/journals/*
+public/site/*
+
+# OS / IDE files
+.DS_Store
+.idea/
+.vscode/
+.ai/

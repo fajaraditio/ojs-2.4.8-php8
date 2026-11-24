@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file classes/db/XMLDAO.inc.php
+ *
+ * Copyright (c) 2013-2019 Simon Fraser University
+ * Copyright (c) 2000-2019 John Willinsky
+ * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
+ *
+ * @class XMLDAO
+ * @ingroup db
+ *
+ * @brief Operations for retrieving and modifying objects from an XML data source.
+ */
+
+
+import('lib.pkp.classes.xml.XMLParser');
+
+class XMLDAO {
+	/**
+	 * Constructor.
+	 */
+	function __construct() {
+	}
+
+	/**
+	 * Parse an XML file and return data in an object.
+	 * @see xml.XMLParser::parse()
+	 */
+	function &parse($file) {
+		$parser = new PKPXMLParser();
+		$data =& $parser->parse($file);
+		$parser->destroy();
+		return $data;
+	}
+
+	/**
+	 * Parse an XML file with the specified handler and return data in an object.
+	 * @see xml.XMLParser::parse()
+	 * @param $handler reference to the handler to use with the parser.
+	 */
+	function &parseWithHandler($file, &$handler) {
+		$parser = new PKPXMLParser();
+		$parser->setHandler($handler);
+		$data =& $parser->parse($file);
+		$parser->destroy();
+		return $data;
+	}
+
+	/**
+	 * Parse an XML file and return data in an array.
+	 * @see xml.XMLParser::parseStruct()
+	 */
+	function &parseStruct($file, $tagsToMatch = array()) {
+		$parser = new PKPXMLParser();
+		$data =& $parser->parseStruct($file, $tagsToMatch);
+		$parser->destroy();
+		return $data;
+	}
+}
+
+?>
