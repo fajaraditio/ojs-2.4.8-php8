@@ -16,16 +16,6 @@ An open-source effort to make **Open Journal Systems (OJS) 2.4.8** (baseline `2.
 - Update or patch bundled third-party libraries in `lib/pkp/` (e.g., ADODB, Smarty, HTMLPurifier, PHPMailer) as needed for PHP 8.5.
 - Preserve all OJS 2.4.8 workflows (installation, upgrade, submission, peer review, editorial, publishing, OAI-PMH, and core plugins).
 
-## Local Verification
-
-Syntax-check all PHP files with PHP 8.5:
-
-```bash
-find . -name "*.php" -not -path "./cache/*" -print0 | xargs -0 -n1 php -l
-```
-
-*(If using Laravel Herd on macOS with multiple PHP versions, replace `php` with your PHP 8.5 binary, e.g. `"/path/to/php85"`.)*
-
 ## Contributing
 
 1. Keep changes minimal and well-scoped so diffs against stock OJS `2.4.8-4` remain easy to audit.
