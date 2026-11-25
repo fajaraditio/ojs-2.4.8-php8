@@ -38,9 +38,46 @@ class StaticPagesHandler extends Handler {
 				Request::redirect(null, 'index');
 			}
 
-			// and assign the template vars needed
-			$templateMgr->assign('title', $staticPage->getStaticPageTitle());
-			$templateMgr->assign('content',  $staticPage->getStaticPageContent());
+			// and assign the template vars needed with locale fallback
+			$pageTitle = $staticPage->getStaticPageTitle();
+			if (empty($pageTitle)) {
+				$primaryLocale = $journal ? $journal->getPrimaryLocale() : AppLocale::getPrimaryLocale();
+				$pageTitle = $staticPage->getTitle($primaryLocale);
+			}
+			if (empty($pageTitle)) {
+				$titles = $staticPage->getTitle(null);
+				if (is_array($titles)) {
+					foreach ($titles as $val) {
+						if (!empty($val)) {
+							$pageTitle = $val;
+							break;
+						}
+					}
+				}
+			}
+			if (empty($pageTitle)) {
+				$pageTitle = $path;
+			}
+
+			$pageContent = $staticPage->getStaticPageContent();
+			if (empty($pageContent)) {
+				$primaryLocale = $journal ? $journal->getPrimaryLocale() : AppLocale::getPrimaryLocale();
+				$pageContent = $staticPage->getContent($primaryLocale);
+			}
+			if (empty($pageContent)) {
+				$contents = $staticPage->getContent(null);
+				if (is_array($contents)) {
+					foreach ($contents as $val) {
+						if (!empty($val)) {
+							$pageContent = $val;
+							break;
+						}
+					}
+				}
+			}
+
+			$templateMgr->assign('title', $pageTitle);
+			$templateMgr->assign('content', $pageContent);
 			$templateMgr->display($staticPagesPlugin->getTemplatePath().'content.tpl');
 		}
 	}
