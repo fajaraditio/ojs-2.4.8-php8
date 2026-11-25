@@ -40,7 +40,7 @@ class KeywordCloudBlockPlugin extends BlockPlugin {
 		$publishedArticles =& $publishedArticleDao->getPublishedArticlesByJournalId($cache->getCacheId());
 		while ($publishedArticle =& $publishedArticles->next()) {
 			$keywords = array_map('trim', explode(';', $publishedArticle->getLocalizedSubject()));
-			foreach ($keywords as $keyword) if (!empty($keyword)) $keywordMap[$keyword]++;
+			foreach ($keywords as $keyword) if (!empty($keyword)) $keywordMap[$keyword] = ($keywordMap[$keyword] ?? 0) + 1;
 			unset($publishedArticle);
 		}
 		arsort($keywordMap, SORT_NUMERIC);
