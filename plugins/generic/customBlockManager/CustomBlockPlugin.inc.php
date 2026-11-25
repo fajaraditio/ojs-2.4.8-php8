@@ -192,8 +192,23 @@ class CustomBlockPlugin extends BlockPlugin {
 		$blockContent = $this->getSetting($journalId, 'blockContent');
 		$blockContentLocale = '';
 	
-		if (is_array($blockContent) && array_key_exists($locale, $blockContent)) {
-			$blockContentLocale = $blockContent[$locale];
+		if (is_array($blockContent)) {
+			if (!empty($blockContent[$locale])) {
+				$blockContentLocale = $blockContent[$locale];
+			} elseif (!empty($blockContent[$primaryLocale])) {
+				$blockContentLocale = $blockContent[$primaryLocale];
+			} else {
+				foreach ($blockContent as $content) {
+					if (!empty($content)) {
+						$blockContentLocale = $content;
+						break;
+					}
+				}
+			}
+		}
+
+		if (trim($blockContentLocale) === '') {
+			return '';
 		}
 
 		$id = 'customblock-'.preg_replace('/\W+/', '-', $this->blockName);

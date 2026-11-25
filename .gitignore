@@ -7,6 +7,8 @@ cache/_db/*
 cache/t_cache/*
 cache/t_compile/*
 cache/t_config/*
+cache/HTML/*
+cache/URI/*
 !cache/.htaccess
 
 # Uploaded public files
@@ -18,3 +20,5 @@ public/site/*
 .idea/
 .vscode/
 .ai/
+
+opencode.json

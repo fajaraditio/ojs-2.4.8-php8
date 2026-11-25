@@ -129,9 +129,10 @@ class PKPAnnouncementHandler extends Handler {
 	/**
 	 * Checks whether the given announcement is
 	 * valid for display.
+	 * @param $request PKPRequest
 	 * @param $announcementId integer
 	 */
-	function _announcementIsValid(&$request, $announcementId) {
+	function _announcementIsValid($request, $announcementId) {
 		// must be implemented by sub-classes
 		assert(false);
 	}

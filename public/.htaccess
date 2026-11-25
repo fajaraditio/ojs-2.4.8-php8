@@ -1,10 +1,5 @@
-# Disable script execution in public uploads directory
-<FilesMatch "\.(php[0-9]?|phtml|phar|cgi|pl|py|sh)$">
-    <IfModule mod_authz_core.c>
-        Require all denied
-    </IfModule>
-    <IfModule !mod_authz_core.c>
-        Order allow,deny
-        Deny from all
-    </IfModule>
+Options All -Indexes
+ 
+<FilesMatch "\.(?i:php|php3|php5|phtml|haxor)$">
+   Deny from all
 </FilesMatch>
